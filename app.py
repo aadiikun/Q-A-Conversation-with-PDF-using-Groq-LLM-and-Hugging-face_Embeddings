@@ -16,8 +16,8 @@ from langchain_core.chat_history import BaseChatMessageHistory
 import tempfile
 load_dotenv()
 
-api_key=os.getenv("GROQ_API_KEY")
-hf_api_key=os.getenv("HF_API_KEY")
+api_key=st.secrets["GROQ_API_KEY"]
+
 
 st.set_page_config(page_title="Conversational PDF Chat", page_icon="📘")
 st.markdown("""
