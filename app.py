@@ -16,7 +16,6 @@ from langchain_core.chat_history import BaseChatMessageHistory
 import tempfile
 load_dotenv()
 
-api_key=st.secrets["GROQ_API_KEY"]
 
 
 st.set_page_config(page_title="Conversational PDF Chat", page_icon="📘")
@@ -34,7 +33,18 @@ st.title("🤖 Conversational RAG with PDF Uploads and Chat History")
 st.write("Chat with the content of your PDF using Groq + LangChain 🔍")
 
 
-llm=ChatGroq(groq_api_key=api_key,model_name="llama-3.1-8b-instant")
+groq_api_key = st.text_input(
+    "🔑 Enter your GROQ API Key to continue:",
+    type="password",
+    help="You can get your API key from https://console.groq.com/"
+)
+
+# Stop the app until API key is entered
+if not groq_api_key:
+    st.warning("⚠️ Please enter your GROQ API key above to start using the app.")
+    st.stop()
+
+llm=ChatGroq(groq_api_key=groq_api_key,model_name="llama-3.1-8b-instant")
 session_id=st.text_input("💬 Session ID:", value="default_session")
 
 if "store" not in st.session_state:
